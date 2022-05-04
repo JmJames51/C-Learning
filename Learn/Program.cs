@@ -8,34 +8,37 @@ namespace Learn
     {
         static void Main()
         {
-            Character character = new Character("Jagle", 100, 10, 7);
-            Character target = new Character("Nooskya", 150, 7, 10);
-            int round = 1;
-            int cDmg = 0;
-            int tDmg = 0;
-            while (character.IsAlive() == true && target.IsAlive() == true)
-            {
-                round += 1;
-                Console.WriteLine("Round " + round);
-                cDmg = character.Attack(target);
-                tDmg = target.Attack(character);
+            int Limit1 = 1;
+            int Limit2 = 100;
+            Console.WriteLine("Enter a number between {0} and {1} : ", Limit1, Limit2);
+            
+            int userInt;
 
-                Console.WriteLine("{0} attack {1} for {2} damage, only {3} hp left\n", character.Name, target.Name, tDmg, character.Health);
-                Console.WriteLine("{0} attack {1} for {2} damage, only {3} hp left\n", target.Name, character.Name, cDmg, target.Health);
-                
-            }
-            if(character.IsAlive() == true){
-
-            Console.WriteLine("{0} is dead {1} killed him and still have {2} hp\n", target.Name, character.Name, character.Health);
-                
-            } else if(character.IsAlive() == false && target.IsAlive() == false)
+            bool game = true; 
+            while (game)
             {
-                Console.WriteLine("Both {0} and {1} are dead, there is no winner", character.Name, target.Name);
+                if (!int.TryParse(Console.ReadLine(), out userInt))
+                {
+                    Console.WriteLine("You did not enter a number, try again :");
+                }
+                else
+                {
+                    if (userInt > Limit2)
+                    {
+                        Console.WriteLine("You have entered {0} which is greater than {1} which is the maximum try again with a lower num :", userInt, Limit2);
+                    }
+                    else if (userInt < Limit1)
+                    {
+                        Console.WriteLine("You have entered {0} which is lower than {1} which is the minimum try again with a higher num : ", userInt, Limit1);
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have entered {0} which is between {1} and {2}", userInt, Limit1, Limit2);
+                        game = false;
+                    }
+                }
             }
-            else
-            {
-                Console.WriteLine("{0} is dead {1} killed him and still have {2} hp\n", character.Name, target.Name, target.Health);
-            }
+            Environment.Exit(0);
         }
     }
 }
